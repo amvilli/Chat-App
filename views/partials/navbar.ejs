@@ -1,0 +1,23 @@
+<nav class="navbar">
+<% if (locals.user) { %>
+    
+    <div  data-user= "<%= user._id %>" class="logo"> <%= user.fullname %></div>
+<% } else { %>
+    <div class="logo">User</div>
+    <% } %>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="buttons">
+        <% if (locals.user) { %>
+         
+            <% } else { %>
+                <button class="signup"> <a href="/user">Sign Up</a></button>
+                <button class="login"><a href="/user/login">Login</a></button>
+
+        <% } %>
+    </div>
+</nav>

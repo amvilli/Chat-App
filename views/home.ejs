@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Navbar</title>
+    <%-include("./partials/style.ejs") %>
+
+</head>
+
+<body>
+    <%- include("./partials/navbar.ejs") %>
+
+        <div class="chat-homepage">
+            <% if (locals.users) { %>
+             <% users.forEach(user => { %>
+                <ul class="users-box">
+
+
+
+                    <li class="users">
+                        <div class="left">
+                            <img class="user-img" src="/man.png" alt="profileImage">
+                            <p class="user-name"> <a href= "<%= `/user/chats/${user._id}` %>" >  <%= user.fullname %> </a> </p>
+                        </div>
+                        <div class="right">
+                            <p class="user-messages"> Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                Molestias quod pariatur ducimus?</p>
+    
+                        </div>
+    
+                    </li>
+    
+                </ul>
+              
+             <% }) %>
+            <% } %>
+            
+           
+
+        </div>
+
+        <%- include("./partials/script.ejs") %>
+</body>
+
+</html>

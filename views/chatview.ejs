@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chattinfgs </title>
+    <%- include("./partials/style.ejs") %>
+</head>
+
+<body>
+    <%- include("./partials/navbar.ejs") %>
+
+        <div class="chat-box">
+
+            <p class="outgoing messages-box ">incoming </p>
+            <p class="incoming messages-box "> outgoing </p>
+            <p class="outgoing messages-box ">incoming </p>
+            <p class="incoming messages-box "> outgoing </p>
+            <p class="outgoing messages-box ">incoming </p>
+            <p class="incoming messages-box "> outgoing </p>
+            <p class="outgoing messages-box ">incoming </p>
+            <p class="incoming messages-box "> outgoing </p>
+            <p class="outgoing messages-box ">incoming </p>
+            <p class="incoming messages-box "> outgoing </p>
+            <p class="outgoing messages-box ">incoming </p>
+            <p class="incoming messages-box "> outgoing </p>
+            <form class="message-form" action="">
+                <textarea class="chat-input" name="message" id="message" placeholder="enter Your message "></textarea>
+                <button class="sendbtn">
+                    <img class="sendbtn" src="/icons8-sent-64.png" alt="">
+                </button>
+            </form>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            const socket = io();
+
+            const sendbtn = document.querySelector(".sendbtn")
+            const chatbox = document.querySelector(".chat-box")
+            const chatinput = document.querySelector(".chat-input")
+            const userProfile = document.querySelector(".logo")
+            const user_id = userProfile.getAttribute("data-user")
+            console.log("userProfile", userProfile)
+            console.log("user ID", user_id)
+
+            sendbtn.addEventListener("click", (e) => {
+                e.preventDefault()
+                chatInput = chatinput.value;
+                socket.emit("userDetails", chatInput, user_id);
+            })
+
+            socket.on("message", (msg) => {
+                console.log("message has arived -->", msg)
+                
+                
+                console.log(user_id , 'UserID ')
+                console.log(msg.createdBy , 'createdBy ')
+                console.log(msg.createdFor , 'createdFor ')
+                
+
+
+            })
+
+            function InsertMsg(msg, msg) {
+
+                if (!msg.createdFor ===   user_id) {
+                    const msgbox = document.createElement("p")
+                    msgbox.classList.add("incoming");
+                    msgbox.textContent = msg;
+                    chatbox.appendChild(msgbox)
+                } else {
+                    const msgbox = document.createElement("p")
+                    msgbox.classList.add("outgoing");
+                    msgbox.textContent = msg;
+                    chatbox.appendChild(msgbox)
+                }
+
+            }
+
+
+        </script>
+
+
+</body>
+
+</html>
