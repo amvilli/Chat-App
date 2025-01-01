@@ -61,20 +61,18 @@ async function HandleUserChatViewGetReq(req, res) {
 
     if(!req.user ) return res.redirect("/user/login")
     const io = req.app.get('io');
-    console.log(req.user)
     const user = await User.findOne({ _id: req.params.id })
 
     io.on("connection", (socket) => {
         socket.on("userDetails", async (msg, userId) => {
             const FirstUser = await User.findOne({ _id: userId })
             const secondUser = await User.findOne({email : req.user.email})
-            console.log(FirstUser, secondUser, " frostuser ")
-
+            console.log("This is user 1 -->", FirstUser);
+            console.log("This is user 2 -->", secondUser);
             const createdMsg = await Msg.create({
                 body: msg,
                 createdBy:  secondUser._id,
                 createdFor: FirstUser._id
-
             })
 
             io.emit("message", createdMsg)

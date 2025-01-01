@@ -42,42 +42,35 @@
             const chatinput = document.querySelector(".chat-input")
             const userProfile = document.querySelector(".logo")
             const user_id = userProfile.getAttribute("data-user")
-            console.log("userProfile", userProfile)
-            console.log("user ID", user_id)
+            console.log("userProfile", userProfile.innerHTML)
+            console.log(`This is user ${userProfile.textContent} and it is his ID ${user_id}`)
 
             sendbtn.addEventListener("click", (e) => {
                 e.preventDefault()
                 chatInput = chatinput.value;
                 socket.emit("userDetails", chatInput, user_id);
-            })
-
-            socket.on("message", (msg) => {
-                console.log("message has arived -->", msg)
-                
-                
-                console.log(user_id , 'UserID ')
-                console.log(msg.createdBy , 'createdBy ')
-                console.log(msg.createdFor , 'createdFor ')
-                
-
+                console.log(`This is user-id ${user_id}`)
 
             })
+            socket.on("message", (msg)=>{
+                console.log("msg has arived here -- >", msg )
+                console.log(user_id ===msg.createdFor,'userid ===msg.createdFor')
+                console.log(user_id ===msg.createdBy, "userid ===msg.createdby")
 
-            function InsertMsg(msg, msg) {
+                if(msg.createdBy!==user_id){
+                    const  newdiv = document.createElement("p")
+                    newdiv.textContent = msg.body;
+                    newdiv.classList.add("incoming");
+                    chatbox.appendChild(newdiv)
 
-                if (!msg.createdFor ===   user_id) {
-                    const msgbox = document.createElement("p")
-                    msgbox.classList.add("incoming");
-                    msgbox.textContent = msg;
-                    chatbox.appendChild(msgbox)
-                } else {
-                    const msgbox = document.createElement("p")
-                    msgbox.classList.add("outgoing");
-                    msgbox.textContent = msg;
-                    chatbox.appendChild(msgbox)
+                }else{
+                    const  newdiv = document.createElement("p")
+                    newdiv.textContent = msg.body;
+                    newdiv.classList.add("outgoing");
+                    chatbox.appendChild(newdiv)
                 }
-
-            }
+            })
+         
 
 
         </script>
