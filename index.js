@@ -12,10 +12,9 @@ const cookieParser = require("cookie-parser")
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server)
-
-
-
+const io = new Server(server, {
+    connectionStateRecovery: {}
+  });
 
 // Middlewares .. 
 HandleMongoDBconnection("mongodb://127.0.0.1:27017/ChatApp")
