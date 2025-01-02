@@ -10,13 +10,14 @@ async function HandleUserGetReq(req, res) {
 }
 async function HandleUserPostReq(req, res) {
     const { fullname, email, password } = req.body
+    console.log("req.file --> ", req.file)
 
     try {
         const createdUser = await User.create({
             fullname,
             email,
             password,
-            profileImage: "/man.png"
+            profileImage: `${req.file.filename}`
         })
         const alluser = await User.find({})
 

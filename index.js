@@ -24,6 +24,7 @@ app.use(CheckAuthentication("token"))
 app.set("view engine", "ejs")
 app.set("views", path.resolve("./views"))
 app.use(express.static(path.resolve("./public/images")))
+app.use(express.static(path.resolve("./public/uploads")))
 app.set('io', io);
 
 app.use("/", homeRoute)
