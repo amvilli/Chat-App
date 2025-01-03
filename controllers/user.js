@@ -17,7 +17,7 @@ async function HandleUserPostReq(req, res) {
             fullname,
             email,
             password,
-            profileImage: `${req.file.filename}`
+            profileImage: `/${req.file.filename}`
         })
         const alluser = await User.find({})
 

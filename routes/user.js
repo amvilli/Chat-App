@@ -11,7 +11,6 @@ const storage = multer.diskStorage({
         const filename = file.originalname
         return cb(null, `${Date.now()}${filename}`)
     }
-
 })
 
 const upload = multer({ storage: storage })
