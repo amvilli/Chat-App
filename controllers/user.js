@@ -68,8 +68,7 @@ async function HandleUserChatViewGetReq(req, res) {
         socket.on("userDetails", async (msg, userId) => {
             const FirstUser = await User.findOne({ _id: userId })
             const secondUser = await User.findOne({email : req.user.email})
-            console.log("This is user 1 -->", FirstUser);
-            console.log("This is user 2 -->", secondUser);
+            console.log(`This is firstuser --> ${FirstUser}, and this is second usr ${secondUser}`)
             const createdMsg = await Msg.create({
                 body: msg,
                 createdBy:  secondUser._id,
